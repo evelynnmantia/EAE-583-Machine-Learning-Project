@@ -1,4 +1,4 @@
-# Prediction of Hail Size Using a Random Forest Classifier
+# Prediction of Maximum Hail Size Using a Random Forest Classifier
 
 Authors: Izzy Smith and Evelynn Mantia
 
