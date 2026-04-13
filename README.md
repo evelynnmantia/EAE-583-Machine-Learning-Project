@@ -57,9 +57,9 @@ Gagne, David John, et al. “Storm-Based Probabilistic Hail Forecasting with Mac
 | Priority          | High |
 | Sprint            | 1 |
 | Assigned To       | Both Members |
-| User Story        | As a developer of a machine learning model, I need to be aware of existing techniques to guide model selection and learn from prior work. |
-| Acceptance Criteria | - Includes multiple studies on ML methods for predicting hail size <br> - Uses recent studies with favorable results <br> - Studies use similar datasets/goals |
-| Automatic Test    | Check authors' GitHub pages to validate models and techniques used |
+| Description       | As a developer of a machine learning model, I need to be aware of the techniques that already exist to have an idea of what type of machine learning model we want to use and learn from techniques already done.  |
+| Acceptance Criteria | - Literature review includes multiple studies discussing various machine learning methods for predicting hail size  <br> - Models/techniques/datasets used in these studies are recent and produced favorable results  <br> - Studies used similar datasets and had similar goals to our project for reference  |
+| Automatic Test    | f available, check the author’s Github pages to validate machine learning models and techniques used in studies.  |
 | Status            | Complete |
 
 | PR-02A:             | Gather MRMS MESH Data |
@@ -67,9 +67,9 @@ Gagne, David John, et al. “Storm-Based Probabilistic Hail Forecasting with Mac
 | Priority          | High |
 | Sprint            | 1 |
 | Assigned To       | Both Members |
-| User Story        | As a developer, I need to gather MRMS MESH data to train my model. |
-| Acceptance Criteria | - Files must be in grib2 format <br> - Files must cover the same time frame |
-| Automatic Test    | Script verifies grib2 format/readability; errors if invalid |
+| Description        | As a developer, I need to gather MRMS MESH data to train my model on. |
+| Acceptance Criteria | - MRMS MESH downloaded files must be in grib2 format  <br> - Downloaded files must be over the same time frame  |
+| Automatic Test    | Create a script to test if downloaded MRMS MESH file is in grib2 format/readable. If the file is not in correct format, send an error. |
 | Status            | Complete |
 
 | PR-02B:             | Preprocess MRMS MESH Data |
@@ -77,9 +77,9 @@ Gagne, David John, et al. “Storm-Based Probabilistic Hail Forecasting with Mac
 | Priority          | High |
 | Sprint            | 1 |
 | Assigned To       | Both Members |
-| User Story        | I need to preprocess and standardize data for effective ML modeling. |
-| Acceptance Criteria | - Convert 2-min data to hourly resolution <br> - Scale using scikit-learn StandardScaler <br> - Remove missing/NaN data |
-| Automatic Test    | Statistical checks ensure scaling consistency; error if missing data |
+| Description        | As a developer of a machine learning model, I need to preprocess and standardize data to produce an effective machine learning model and use it in the random forest. |
+| Acceptance Criteria | - 2-minute resolution MRMS MESH data must be averaged into hourly resolution to work together with HRRR data in ML model  <br> - Use scikit-learn standard scalar method to scale data to be within the same size for analysis  <br> - Remove any missing or NaN data |
+| Automatic Test    | erform simple statistic tests on dataset to ensure data is within the same scale. If dataset statistics do not show to be within a reasonable range of values, revise scaling method. If data is incomplete or missing, generate an error detailing what data is missing. |
 | Status            | In Progress |
 
 | PR-03A:             | Download HRRR Analysis Data |
@@ -87,9 +87,9 @@ Gagne, David John, et al. “Storm-Based Probabilistic Hail Forecasting with Mac
 | Priority          | High |
 | Sprint            | 1 |
 | Assigned To       | Both Members |
-| User Story        | I need HRRR analysis data to train my model. |
-| Acceptance Criteria | - Files must be in grib2 format <br> - Must match MRMS time frame |
-| Automatic Test    | Script verifies format/readability |
+| User Story        | As a developer of a machine learning model, I need to download a HRRR analysis data set, so I have data to train my model. |
+| Acceptance Criteria | - Downloaded files must be in grib2 format  <br> -Downloaded files must cover the same time frame as the MRMS MESH dataset  |
+| Automatic Test    | Create a script to test if downloaded HRRR file is in grib2 format/readable. If the file is not in correct format, send an error. |
 | Status            | Completed |
 
 | PR-03B:              | Gather Variables from HRRR Analysis Data |
@@ -97,9 +97,9 @@ Gagne, David John, et al. “Storm-Based Probabilistic Hail Forecasting with Mac
 | Priority          | High |
 | Sprint            | 1 |
 | Assigned To       | Both Members |
-| User Story        | I need to extract variables for clustering and model training. |
-| Acceptance Criteria | - Scripts read grib2 files <br> - Scripts extract/calculate required variables |
-| Automatic Test    | Script checks all required variables exist and are complete |
+| Description       | As a developer of a machine learning model, I need to gather individual variables to be able to cluster and train my model on.  |
+| Acceptance Criteria | - Scripts must be able to read data files in grib2 format <br> - Scripts must be able to read/calculate determined atmospheric variables from provided data |
+| Automatic Test    | Create a script to run through each of the required variables to ensure that each variable is present and complete. |
 | Status            | In Progress |
 
 | PR-03C:            | Preprocess HRRR Analysis Data for Random Forest |
@@ -107,9 +107,9 @@ Gagne, David John, et al. “Storm-Based Probabilistic Hail Forecasting with Mac
 | Priority          | High |
 | Sprint            | 1 |
 | Assigned To       | Both Members |
-| User Story        | I need to preprocess HRRR data to merge with MRMS MESH for modeling. |
-| Acceptance Criteria | - Keep only necessary variables <br> - Format into CSV for model input |
-| Automatic Test    | Script verifies all variables exist in CSV; errors if missing |
+| Description       | As a developer of a machine learning model, I need to preprocess the HRRR analysis data for so I can join this data with the MRMS MESH dataset to be later put into my random forest model. |
+| Acceptance Criteria | - HRRR variable data is reduced to just the necessary data required for the random forest  <br> - The remaining necessary data must be formatted into a csv file to be inputted in the random forest |
+| Automatic Test    | Create a script that reads the csv file and tests to see if all variables/data are present. If all of the variables are not present, send an error and output what is missing. |
 | Status            | In Progress |
 
 | PR-04A:            | Create Training, Testing, and Verification Datasets |
@@ -117,9 +117,9 @@ Gagne, David John, et al. “Storm-Based Probabilistic Hail Forecasting with Mac
 | Priority          | High |
 | Sprint            | 2 |
 | Assigned To       | Both Members |
-| User Story        | I need separate datasets to ensure accurate model evaluation. |
-| Acceptance Criteria | - Split MRMS and HRRR into three datasets <br> - Combine into aligned datasets <br> - Maintain proportional size and distribution |
-| Automatic Test    | Script compares dataset statistics; revise if distributions differ |
+| Description        | As a developer of a machine learning model, I need to create separate data sets for training, testing, and verification to make sure that the verification and model tests are the most accurate and skillful that they can be.  |
+| Acceptance Criteria | - MRMS MESH data must be split into three separate dataset <br> - HRRR data must be split into three separate datasets <br> - MRMS MESH and HRRR come together to just three datasets, each containing both  <br> - Each dataset must be suitably proportioned in terms of size <br> - Each dataset should roughly be an accurate representation of the overall distribution to favor the real data and avoid biases|
+| Automatic Test    | Create a script that tests each of the datasets by printing statistics on them and comparing them to each other. If the dataset statistics are not roughly the same, revise the created subsets until they are close |
 | Status            | To Be Completed |
 
 | PR-04B:             | Train Machine Learning Model |
@@ -127,9 +127,9 @@ Gagne, David John, et al. “Storm-Based Probabilistic Hail Forecasting with Mac
 | Priority          | High |
 | Sprint            | 2 |
 | Assigned To       | Both Members |
-| User Story        | I need to train a model to predict maximum hail size. |
-| Acceptance Criteria | - Use scikit-learn Random Forest <br> - Accept new input data and produce predictions |
-| Automatic Test    | Script validates outputs (hail size, bounds, etc.) |
+| Description       | As a developer of a machine learning model, I need to train the machine learning model using the collected variables from the HRRR and MESH to predict the maximum hail size expected. |
+| Acceptance Criteria | - Random forest model should use scikit-learn framework <br> - The model should be formatted such that new environmental and MESH data can be input and the model will display the output |
+| Automatic Test    | Create a script to test the random forest output for desired results (i.e., max hail size, variable bounds) |
 | Status            | To Be Completed |
 
 | PR-05:            | Verify Machine Learning Model |
@@ -137,9 +137,9 @@ Gagne, David John, et al. “Storm-Based Probabilistic Hail Forecasting with Mac
 | Priority          | High |
 | Sprint            | 2 |
 | Assigned To       | Both Members |
-| User Story        | I need to verify the model’s prediction accuracy. |
-| Acceptance Criteria | - Use scikit-learn Decision Tree <br> - Accept new inputs and produce outputs <br> - Analyze verification subset performance |
-| Automatic Test    | Script computes performance metrics (e.g., F-score) |
+| Description        | As a developer of a machine learning model, I need to verify the machine learning model to predict what maximum hail size is expected based on the environmental variables.  |
+| Acceptance Criteria | - Decision tree model should use scikit-learn framework <br> - The model should be formatted such that new environmental and MESH data can be input and the model will display the output <br> - Outputs with the verification subset must be analyzed to assess model performance |
+| Automatic Test    | Create a script to test the random forest output and statistics that assess the model performance (i.e., F-score) |
 | Status            | To Be Completed |
 
 | PR-06:              | Write Up Results |
@@ -147,7 +147,7 @@ Gagne, David John, et al. “Storm-Based Probabilistic Hail Forecasting with Mac
 | Priority          | Medium |
 | Sprint            | 2 |
 | Assigned To       | Both Members |
-| User Story        | I need to clearly communicate project results. |
-| Acceptance Criteria | - Follow Eloquent Science guidelines <br> - Include required sections <br> - Organize code and writing on GitHub |
-| Automatic Test    | Peer review of GitHub project page |
+| Description       | As a developer of a machine learning model, I need to be able to communicate the results well for the project to be shared |
+| Acceptance Criteria | - Writing follows Eloquent Science writing guidelines  <br> - The proper sections (e.g., Introduction, Data and Methods, etc..) must be included  <br> - The writing and code are compiled and organized on GitHub  |
+| Automatic Test    | Have another person (anyone else other than the person with the project on their GitHub) check the project GitHub page and read through it |
 | Status            | To Be Completed |
