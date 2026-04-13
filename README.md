@@ -51,3 +51,103 @@ Escalating hail risk: Munich Re Specialty warns of billion-dollar threat | Munic
 Gagne, David John, et al. “Storm-Based Probabilistic Hail Forecasting with Machine Learning Applied to Convection-Allowing Ensembles.” Weather and Forecasting, vol. 32, no. 5, 22 Sept. 2017, pp. 1819–1840, https://doi.org/10.1175/waf-d-17-0010.1. 
 
 # Requirements Document
+
+| PR-01:            | Create a Short Literature Review of Hail Size Research Using ML |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 1 |
+| Assigned To       | Both Members |
+| User Story        | As a developer of a machine learning model, I need to be aware of existing techniques to guide model selection and learn from prior work. |
+| Acceptance Criteria | - Includes multiple studies on ML methods for predicting hail size <br> - Uses recent studies with favorable results <br> - Studies use similar datasets/goals |
+| Automatic Test    | Check authors' GitHub pages to validate models and techniques used |
+| Status            | Complete |
+
+| PR-02A:             | Gather MRMS MESH Data |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 1 |
+| Assigned To       | Both Members |
+| User Story        | As a developer, I need to gather MRMS MESH data to train my model. |
+| Acceptance Criteria | - Files must be in grib2 format <br> - Files must cover the same time frame |
+| Automatic Test    | Script verifies grib2 format/readability; errors if invalid |
+| Status            | Complete |
+
+| PR-02B:             | Preprocess MRMS MESH Data |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 1 |
+| Assigned To       | Both Members |
+| User Story        | I need to preprocess and standardize data for effective ML modeling. |
+| Acceptance Criteria | - Convert 2-min data to hourly resolution <br> - Scale using scikit-learn StandardScaler <br> - Remove missing/NaN data |
+| Automatic Test    | Statistical checks ensure scaling consistency; error if missing data |
+| Status            | In Progress |
+
+| PR-03A:             | Download HRRR Analysis Data |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 1 |
+| Assigned To       | Both Members |
+| User Story        | I need HRRR analysis data to train my model. |
+| Acceptance Criteria | - Files must be in grib2 format <br> - Must match MRMS time frame |
+| Automatic Test    | Script verifies format/readability |
+| Status            | Completed |
+
+| PR-03B:              | Gather Variables from HRRR Analysis Data |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 1 |
+| Assigned To       | Both Members |
+| User Story        | I need to extract variables for clustering and model training. |
+| Acceptance Criteria | - Scripts read grib2 files <br> - Scripts extract/calculate required variables |
+| Automatic Test    | Script checks all required variables exist and are complete |
+| Status            | In Progress |
+
+| PR-03C:            | Preprocess HRRR Analysis Data for Random Forest |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 1 |
+| Assigned To       | Both Members |
+| User Story        | I need to preprocess HRRR data to merge with MRMS MESH for modeling. |
+| Acceptance Criteria | - Keep only necessary variables <br> - Format into CSV for model input |
+| Automatic Test    | Script verifies all variables exist in CSV; errors if missing |
+| Status            | In Progress |
+
+| PR-04A:            | Create Training, Testing, and Verification Datasets |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 2 |
+| Assigned To       | Both Members |
+| User Story        | I need separate datasets to ensure accurate model evaluation. |
+| Acceptance Criteria | - Split MRMS and HRRR into three datasets <br> - Combine into aligned datasets <br> - Maintain proportional size and distribution |
+| Automatic Test    | Script compares dataset statistics; revise if distributions differ |
+| Status            | To Be Completed |
+
+| PR-04B:             | Train Machine Learning Model |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 2 |
+| Assigned To       | Both Members |
+| User Story        | I need to train a model to predict maximum hail size. |
+| Acceptance Criteria | - Use scikit-learn Random Forest <br> - Accept new input data and produce predictions |
+| Automatic Test    | Script validates outputs (hail size, bounds, etc.) |
+| Status            | To Be Completed |
+
+| PR-05:            | Verify Machine Learning Model |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 2 |
+| Assigned To       | Both Members |
+| User Story        | I need to verify the model’s prediction accuracy. |
+| Acceptance Criteria | - Use scikit-learn Decision Tree <br> - Accept new inputs and produce outputs <br> - Analyze verification subset performance |
+| Automatic Test    | Script computes performance metrics (e.g., F-score) |
+| Status            | To Be Completed |
+
+| PR-06:              | Write Up Results |
+|-------------------|--------|
+| Priority          | Medium |
+| Sprint            | 2 |
+| Assigned To       | Both Members |
+| User Story        | I need to clearly communicate project results. |
+| Acceptance Criteria | - Follow Eloquent Science guidelines <br> - Include required sections <br> - Organize code and writing on GitHub |
+| Automatic Test    | Peer review of GitHub project page |
+| Status            | To Be Completed |
