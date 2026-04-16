@@ -10,7 +10,7 @@ There is a need for improved hail forecasting. Advancements toward improved hail
 
 While many studies have produced machine learning models to predict the probabilities of hail production, very few have looked at using machine learning for the estimation of hail sizes. For example, Burke et al. (2020) combined three different machine learning models using the HREFv2 dataset as input variables and compared their results with SPC’s practically perfect data and outlooks. This product was effective at reducing modeling bias and predicting hail probability and potential severity, as it was comparable to SPC’s practically perfect dataset; however, the model had a bias toward higher predicted hail sizes than were observed (Burke et al. 2020).  
 
-Another study conducted by Gagne et al. (2017) produced a high-functioning machine learning model using data from two convective-allowing models (CAMs), including the Center for Analysis and Prediction of Storms’ (CAPS) Storm-Scale Ensemble Forecast system and the National Center for Atmospheric Research (NCAR) ensemble. Gagne et al. (2017) also used MRMS MESH data for hail size predictions, but noted that, despite this being the best available dataset for predicting hail size, it does show a large size bias. 
+Another study conducted by Gagne et al. (2017) produced a high-functioning machine learning model using data from two convective-allowing models (CAMs), including the Center for Analysis and Prediction of Storms’ (CAPS) Storm-Scale Ensemble Forecast system and the National Center for Atmospheric Research (NCAR) ensemble. Gagne et al. (2017) also used MRMS MESH data for hail size predictions, but noted that, despite this being the best available dataset for predicting hail size, it does show a large size bias. It should be noted that there are known biases associated with MESH, most notably, it is not reliable as hail sizes get above the significant severe threshold (2+ inches) and approach giant hail (4+ inches in diameter) (e.g., Wendt and Jirek, 2021). 
 
 This project aims to build on previous literature dealing with machine learning and hail forecasting, not specifically for the overall probability of hail production, but by diving into the ability of a machine learning model to predict hail size. 
 
@@ -49,6 +49,8 @@ Doswell, C. A., H. E. Brooks, and M. P. Kay, 2005: Climatological Estimates of D
 Escalating hail risk: Munich Re Specialty warns of billion-dollar threat | Munich Re - North America,. Accessed 18 November 2025, https://www.munichre.com/specialty/north-america/en/insights/climate-change-and-natural-disasters/escalating-hail-risk.html. 
 
 Gagne, David John, et al. “Storm-Based Probabilistic Hail Forecasting with Machine Learning Applied to Convection-Allowing Ensembles.” Weather and Forecasting, vol. 32, no. 5, 22 Sept. 2017, pp. 1819–1840, https://doi.org/10.1175/waf-d-17-0010.1. 
+
+Wendt, N. A., and I. L. Jirak, 2021: An Hourly Climatology of Operational MRMS MESH-Diagnosed Severe and Significant Hail with Comparisons to Storm Data Hail Reports, https://doi.org/10.1175/WAF-D-20-0158.1.
 
 # Requirements Document
 
