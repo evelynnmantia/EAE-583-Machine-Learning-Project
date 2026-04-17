@@ -28,7 +28,7 @@ With this approach, it is expected that the machine learning model will perform 
 
 
 ## IV. Summary
-
+This project used a random forest ML model to predict the maximum hail size based on environmental variables from the HRRR. Improving hail forecasting ability by drawing connections between hail sizes and environmental variable values can be used to better prepare industry to anticipate potential damage and loss due to severe hail events as well as introduces opportunities for better hail mitigation/preparation. Further, this ML tool can be useful for forecasters to inform and communicate accurate prediction of hail risk/impact on society for a hail event. The random forest model used a dataset composed of fourteen HRRR environmental variables aligned with MRMS MESH values at each location to train, validate and test on. Results of the model performance, only based on a single day and single time step for latitude/longitude bounds of Minnesota, show an okay performing model with an R2 score of 0.52. This lower model performance is expected due to the limited data available used to run the random forest. In the future, the random forest will be run using data from March 1st till May 31st, 2024, which should provide the model with more samples to increase the model performance. In addition to the lengthening of the period used for input data, more HRRR variables will be included to further increase the ability of the model to predict the maximum hail size.
 
 ## V. References
 
