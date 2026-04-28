@@ -10,18 +10,25 @@ There is a need for improved hail forecasting. Advancements toward improved hail
 
 While many studies have produced machine learning models to predict the probabilities of hail production, very few have looked at using machine learning for the estimation of hail sizes. For example, Burke et al. (2020) combined three different machine learning models using the HREFv2 dataset as input variables and compared their results with SPC’s practically perfect data and outlooks. This product was effective at reducing modeling bias and predicting hail probability and potential severity, as it was comparable to SPC’s practically perfect dataset; however, the model had a bias toward higher predicted hail sizes than were observed (Burke et al. 2020).  
 
-Another study conducted by Gagne et al. (2017) produced a high-functioning machine learning model using data from two convective-allowing models (CAMs), including the Center for Analysis and Prediction of Storms’ (CAPS) Storm-Scale Ensemble Forecast system and the National Center for Atmospheric Research (NCAR) ensemble. Gagne et al. (2017) also used MRMS MESH data for hail size predictions, but noted that, despite this being the best available dataset for predicting hail size, it does show a large size bias. 
+Another study conducted by Gagne et al. (2017) produced a high-functioning machine learning model using data from two convective-allowing models (CAMs), including the Center for Analysis and Prediction of Storms’ (CAPS) Storm-Scale Ensemble Forecast system and the National Center for Atmospheric Research (NCAR) ensemble. Gagne et al. (2017) also used MRMS MESH data for hail size predictions, but noted that, despite this being the best available dataset for predicting hail size, it does show a large size bias. It should be noted that there are known biases associated with MESH, most notably, it is not reliable as hail sizes get above the significant severe threshold (2+ inches) and approach giant hail (4+ inches in diameter) (e.g., Wendt and Jirek, 2021). 
 
 This project aims to build on previous literature dealing with machine learning and hail forecasting, not specifically for the overall probability of hail production, but by diving into the ability of a machine learning model to predict hail size. 
 
 ## II. Data and Methods
 
+Our proposed project aims to use a combination of two main datasets: High Resolution Rapid Refresh (HRRR) and Multi-Radar Multi-Sensor Maximum Estimated Size of Hail (MRMS MESH). To train, validate, and test our machine learning (ML) model, we will use a combination of the HRRR numerical model and the MRMS MESH datasets separated into subsets. The HRRR is a convective-allowing model (CAM) that provides hourly updates over North America at 3-km resolution. The MRMS MESH dataset provides a 2-minute resolution time over the Contiguous United States (CONUS) for hail size estimations using the Severe Hail Index (SHI) and radar reflectivity. Both datasets can be publicly accessed through the AWS online database. The HRRR model will provide environmental variables, while the MRMS MESH dataset will provide the estimated hail sizes. By merging these two datasets based on their shared date/time values, as well as latitude and longitude, we can produce an ML model that uses the environmental variables to filter down to estimate the maximum hail size.
+
+Due to the range of values for each of our data types having large variation, we first need to preprocess our data, so the ML model does not favor the larger values. The preprocessing step of training a model involves the standardization of data, so each variable has equal opportunity. The scikit-learn standard scalar method can convert each data point into a standard Z-score, which will show deviations from the mean. These deviations, for example, may show us the important variables that lead to anomalously higher hail sizes than normal. Another important preprocessing step includes merging the HRRR and MRMS MESH data into a singular dataset based on their date/time and latitude/longitude values so the data can be analyzed all together. Finally, cleaning up the data to ensure there are no missing values, or other errors will allow us to begin working with the data to be put into our ML model. 
+
+This project will use a random forest (i.e., an ensemble of decision trees) regressor to predict the maximum hail size based on environmental variables. The regressor is used due to the continuous nature of our data. The variables investigated include: surface-based convective available potential energy (SB CAPE), mean layer convective available potential energy (ML CAPE), surface-based convective inhibition (SB CIN), hourly maximum updraft helicity, storm relative helicity (SRH), lifted condensation level (LCL), reflectivity, 2-meter temperature, 2-meter dewpoint, 500mb temperature, 10-meter U wind, 10-meter V wind, 700mb U wind, and 700mb V wind. Variables were chosen based on those that are important for hail forecasting, following a similar environmental variable selection as Gagne et al., 2017, with variations due to time limitations of the project influencing a lower number of variables used. Due to the time constraints and scope in the development of this project, a single day and time of data were analyzed. Specifically, 2024 July 31 at 2100Z in a domain restricted to Minnesota (Fig. 1). Previous research performed by Gagne et al. (2017) used a random forest model to classify hail occurrence and a regression model to predict the MESH distribution pattern. For this project, multitask learning was employed by the random forest and an elastic net to predict the shape and scale parameters of the MESH distribution (Gagne et al. 2017). While a statistical regression approach has been used in the literature for the MESH distribution, it may be implemented in future work beyond this project due to the timeline and scope of this project.
+
+With this approach, it is expected that the machine learning model will perform generally well in predicting hail size. Literature assessing hail occurrence and predicting severe and significant hail using machine learning, specifically a random forest, have shown an increase in the skill of hail potential and severity/size (e.g., Burke et al., 2020; Gagne et al., 2017). Since this project is applying a similar method to previous work, it should align with better hail potential and size forecasting. Conversely, due to the limitations of this project in terms of simplicity and scope when compared to the methods of previous literature (e.g., not using a regression model like Gagne et al., 2017), it is possible to have results that do not classifying hail size based on environmental variables as well as work that has been done.
 
 ## III. Initial Results
-
+Our preliminary results look at July 31, 2024, at 21Z, which we know to be a date and time in which there were hail threats across Minnesota. The data was filtered to only include MRMS MESH and HRRR data points within this region of the CONUS. This filtering left the dataset with 44,601 data points to work with when creating its predictions in our random forest regressor model. Out of this, 31,723 samples were used to produce the training dataset. The following classifications were used to create the model: maximum depth = 20, minimum leaf samples = 25, number of estimators = 200, and random state = 100. With the given dataset, the success of the model on the testing dataset is as follows: R2 score = 0.46, mean squared error = 0.88, and mean absolute error = 0.23. To improve this model, we plan to work with our validation dataset to adjust the basic classifiers within the trees, as well as extend the dataset to multiple days and timestamps. While the current input data is less than ideal, the functionality of the random forest regressor model is successful.  
 
 ## IV. Summary
-
+This project used a random forest ML model to predict the maximum hail size based on environmental variables from the HRRR. Improving hail forecasting ability by drawing connections between hail sizes and environmental variable values can be used to better prepare industry to anticipate potential damage and loss due to severe hail events as well as introduces opportunities for better hail mitigation/preparation. Further, this ML tool can be useful for forecasters to inform and communicate accurate prediction of hail risk/impact on society for a hail event. The random forest model used a dataset composed of fourteen HRRR environmental variables aligned with MRMS MESH values at each location to train, validate and test on. Results of the model performance, only based on a single day and single time step for latitude/longitude bounds of Minnesota, show an okay performing model with an R2 score of 0.52. This lower model performance is expected due to the limited data available used to run the random forest. In the future, the random forest will be run using data from March 1st till May 31st, 2024, which should provide the model with more samples to increase the model performance. In addition to the lengthening of the period used for input data, more HRRR variables will be included to further increase the ability of the model to predict the maximum hail size.
 
 ## V. References
 
@@ -43,4 +50,106 @@ Escalating hail risk: Munich Re Specialty warns of billion-dollar threat | Munic
 
 Gagne, David John, et al. “Storm-Based Probabilistic Hail Forecasting with Machine Learning Applied to Convection-Allowing Ensembles.” Weather and Forecasting, vol. 32, no. 5, 22 Sept. 2017, pp. 1819–1840, https://doi.org/10.1175/waf-d-17-0010.1. 
 
+Wendt, N. A., and I. L. Jirak, 2021: An Hourly Climatology of Operational MRMS MESH-Diagnosed Severe and Significant Hail with Comparisons to Storm Data Hail Reports, https://doi.org/10.1175/WAF-D-20-0158.1.
+
 # Requirements Document
+
+| PR-01:            | Create a Short Literature Review of Hail Size Research Using ML |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 1 |
+| Assigned To       | Both Members |
+| Description       | As a developer of a machine learning model, I need to be aware of the techniques that already exist to have an idea of what type of machine learning model we want to use and learn from techniques already done.  |
+| Acceptance Criteria | - Literature review includes multiple studies discussing various machine learning methods for predicting hail size  <br> - Models/techniques/datasets used in these studies are recent and produced favorable results  <br> - Studies used similar datasets and had similar goals to our project for reference  |
+| Automatic Test    | f available, check the author’s Github pages to validate machine learning models and techniques used in studies.  |
+| Status            | Complete |
+
+| PR-02A:             | Gather MRMS MESH Data |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 1 |
+| Assigned To       | Both Members |
+| Description        | As a developer, I need to gather MRMS MESH data to train my model on. |
+| Acceptance Criteria | - MRMS MESH downloaded files must be in grib2 format  <br> - Downloaded files must be over the same time frame  |
+| Automatic Test    | Create a script to test if downloaded MRMS MESH file is in grib2 format/readable. If the file is not in correct format, send an error. |
+| Status            | Complete |
+
+| PR-02B:             | Preprocess MRMS MESH Data |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 1 |
+| Assigned To       | Both Members |
+| Description        | As a developer of a machine learning model, I need to preprocess and standardize data to produce an effective machine learning model and use it in the random forest. |
+| Acceptance Criteria | - 2-minute resolution MRMS MESH data must be averaged into hourly resolution to work together with HRRR data in ML model  <br> - Use scikit-learn standard scalar method to scale data to be within the same size for analysis  <br> - Remove any missing or NaN data |
+| Automatic Test    | erform simple statistic tests on dataset to ensure data is within the same scale. If dataset statistics do not show to be within a reasonable range of values, revise scaling method. If data is incomplete or missing, generate an error detailing what data is missing. |
+| Status            | In Progress |
+
+| PR-03A:             | Download HRRR Analysis Data |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 1 |
+| Assigned To       | Both Members |
+| User Story        | As a developer of a machine learning model, I need to download a HRRR analysis data set, so I have data to train my model. |
+| Acceptance Criteria | - Downloaded files must be in grib2 format  <br> -Downloaded files must cover the same time frame as the MRMS MESH dataset  |
+| Automatic Test    | Create a script to test if downloaded HRRR file is in grib2 format/readable. If the file is not in correct format, send an error. |
+| Status            | Completed |
+
+| PR-03B:              | Gather Variables from HRRR Analysis Data |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 1 |
+| Assigned To       | Both Members |
+| Description       | As a developer of a machine learning model, I need to gather individual variables to be able to cluster and train my model on.  |
+| Acceptance Criteria | - Scripts must be able to read data files in grib2 format <br> - Scripts must be able to read/calculate determined atmospheric variables from provided data |
+| Automatic Test    | Create a script to run through each of the required variables to ensure that each variable is present and complete. |
+| Status            | In Progress |
+
+| PR-03C:            | Preprocess HRRR Analysis Data for Random Forest |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 1 |
+| Assigned To       | Both Members |
+| Description       | As a developer of a machine learning model, I need to preprocess the HRRR analysis data for so I can join this data with the MRMS MESH dataset to be later put into my random forest model. |
+| Acceptance Criteria | - HRRR variable data is reduced to just the necessary data required for the random forest  <br> - The remaining necessary data must be formatted into a csv file to be inputted in the random forest |
+| Automatic Test    | Create a script that reads the csv file and tests to see if all variables/data are present. If all of the variables are not present, send an error and output what is missing. |
+| Status            | In Progress |
+
+| PR-04A:            | Create Training, Testing, and Verification Datasets |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 2 |
+| Assigned To       | Both Members |
+| Description        | As a developer of a machine learning model, I need to create separate data sets for training, testing, and verification to make sure that the verification and model tests are the most accurate and skillful that they can be.  |
+| Acceptance Criteria | - MRMS MESH data must be split into three separate dataset <br> - HRRR data must be split into three separate datasets <br> - MRMS MESH and HRRR come together to just three datasets, each containing both  <br> - Each dataset must be suitably proportioned in terms of size <br> - Each dataset should roughly be an accurate representation of the overall distribution to favor the real data and avoid biases|
+| Automatic Test    | Create a script that tests each of the datasets by printing statistics on them and comparing them to each other. If the dataset statistics are not roughly the same, revise the created subsets until they are close |
+| Status            | To Be Completed |
+
+| PR-04B:             | Train Machine Learning Model |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 2 |
+| Assigned To       | Both Members |
+| Description       | As a developer of a machine learning model, I need to train the machine learning model using the collected variables from the HRRR and MESH to predict the maximum hail size expected. |
+| Acceptance Criteria | - Random forest model should use scikit-learn framework <br> - The model should be formatted such that new environmental and MESH data can be input and the model will display the output |
+| Automatic Test    | Create a script to test the random forest output for desired results (i.e., max hail size, variable bounds) |
+| Status            | To Be Completed |
+
+| PR-05:            | Verify Machine Learning Model |
+|-------------------|--------|
+| Priority          | High |
+| Sprint            | 2 |
+| Assigned To       | Both Members |
+| Description        | As a developer of a machine learning model, I need to verify the machine learning model to predict what maximum hail size is expected based on the environmental variables.  |
+| Acceptance Criteria | - Decision tree model should use scikit-learn framework <br> - The model should be formatted such that new environmental and MESH data can be input and the model will display the output <br> - Outputs with the verification subset must be analyzed to assess model performance |
+| Automatic Test    | Create a script to test the random forest output and statistics that assess the model performance (i.e., F-score) |
+| Status            | To Be Completed |
+
+| PR-06:              | Write Up Results |
+|-------------------|--------|
+| Priority          | Medium |
+| Sprint            | 2 |
+| Assigned To       | Both Members |
+| Description       | As a developer of a machine learning model, I need to be able to communicate the results well for the project to be shared |
+| Acceptance Criteria | - Writing follows Eloquent Science writing guidelines  <br> - The proper sections (e.g., Introduction, Data and Methods, etc..) must be included  <br> - The writing and code are compiled and organized on GitHub  |
+| Automatic Test    | Have another person (anyone else other than the person with the project on their GitHub) check the project GitHub page and read through it |
+| Status            | To Be Completed |
