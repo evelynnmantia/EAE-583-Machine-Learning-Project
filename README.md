@@ -27,7 +27,7 @@ This project will use a random forest (i.e., an ensemble of decision trees) regr
 </p>
 
 <p align="center">
-  <em>Figure 1: July 31st, 2024, hail reports and hailstone size diameter count. </em>
+  <em>Figure 1: July 31st, 2024, hail reports and hailstone size diameter count for Minnesota. </em>
 </p>
 
 With this approach, it is expected that the machine learning model will perform generally well in predicting hail size. Literature assessing hail occurrence and predicting severe and significant hail using machine learning, specifically a random forest, have shown an increase in the skill of hail potential and severity/size (e.g., Burke et al., 2020; Gagne et al., 2017). Since this project is applying a similar method to previous work, it should align with better hail potential and size forecasting. Conversely, due to the limitations of this project in terms of simplicity and scope when compared to the methods of previous literature (e.g., not using a regression model like Gagne et al., 2017), it is possible to have results that do not classifying hail size based on environmental variables as well as work that has been done.
