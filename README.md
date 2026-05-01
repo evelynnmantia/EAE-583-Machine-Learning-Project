@@ -36,7 +36,7 @@ With this approach, it is expected that the machine learning model will perform 
 Our preliminary results look at July 31, 2024, at 21Z, which we know to be a date and time in which there were hail threats across Minnesota. The data was filtered to only include MRMS MESH and HRRR data points within this region of the CONUS. This filtering left the dataset with 44,601 data points to work with when creating its predictions in our random forest regressor model. Out of this, 31,723 samples were used to produce the training dataset. The following classifications were used to create the model: maximum depth = 20, minimum leaf samples = 25, number of estimators = 200, and random state = 100. With the given dataset, the success of the model on the testing dataset is as follows: R2 score = 0.46, mean squared error = 0.88, and mean absolute error = 0.23. To improve this model, we plan to work with our validation dataset to adjust the basic classifiers within the trees, as well as extend the dataset to multiple days and timestamps. While the current input data is less than ideal, the functionality of the random forest regressor model is successful.  
 
 <p align="center">
-  <img src="images/Figure_2.png" width="850">
+  <img src="images/Figure 2.png" width="850">
 </p>
 
 <p align="center">
@@ -44,15 +44,15 @@ Our preliminary results look at July 31, 2024, at 21Z, which we know to be a dat
 </p>
 
 <p align="center">
-  <img src="images/Figure_3.png" width="850">
+  <img src="images/Figure 3.png" width="850">
 </p>
 
 <p align="center">
-  <em>Figure 3:  </em>
+  <em>Figure 3: Performance metrics for the random forest regressor. </em>
 </p>
 
 <p align="center">
-  <img src="images/Figure_4.png" width="850">
+  <img src="images/figure_4.png" width="850">
 </p>
 
 <p align="center">
