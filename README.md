@@ -101,12 +101,14 @@ Accessing these data:
 MRMS MESH
 
 MRMS MESH is publiclly available from the regirsty of open data on AWS: for 07-31-2024, choose 2100Z, https://noaa-mrms-pds.s3.amazonaws.com/index.html#CONUS/MESH_Max_60min_00.50/20240731/
+
 Download and input into directory to run hail_random_forest_regression.ipynb found in the notebooks folder.
 
 
 HRRR
 
 HRRR data is accessed through Herbie by running the script found in hail_random_forest_regression.ipynb in the notebooks folder.
+
 No outside sources are required to reproduce exactly what was done in this project for dowloading the HRRR variable data.
 
 
