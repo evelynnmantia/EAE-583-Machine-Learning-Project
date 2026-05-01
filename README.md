@@ -92,15 +92,19 @@ Wendt, N. A., and I. L. Jirak, 2021: An Hourly Climatology of Operational MRMS M
 # Data Usage
 
 These data used to created the random forest regressor include:
-  -MRMS MESH from 07-31-2024 at 2100Z
-  -HRRR variables (14 variables used described above in the methods section for reference) from 7-31-2024 at 2100Z
+
+    -MRMS MESH from 07-31-2024 at 2100Z
+    -HRRR variables (14 variables used described above in the methods section for reference) from 7-31-2024 at 2100Z
 
 Accessing these data:
+
 MRMS MESH
+
 MRMS MESH is publiclly available from the regirsty of open data on AWS: for 07-31-2024, choose 2100Z, https://noaa-mrms-pds.s3.amazonaws.com/index.html#CONUS/MESH_Max_60min_00.50/20240731/
 Download and input into directory to run hail_random_forest_regression.ipynb found in the notebooks folder.
 
 HRRR
+
 HRRR data is accessed through Herbie by running the script found in hail_random_forest_regression.ipynb in the notebooks folder.
 No outside sources are required to reproduce exactly what was done in this project for dowloading the HRRR variable data.
 
