@@ -35,6 +35,30 @@ With this approach, it is expected that the machine learning model will perform 
 ## III. Initial Results
 Our preliminary results look at July 31, 2024, at 21Z, which we know to be a date and time in which there were hail threats across Minnesota. The data was filtered to only include MRMS MESH and HRRR data points within this region of the CONUS. This filtering left the dataset with 44,601 data points to work with when creating its predictions in our random forest regressor model. Out of this, 31,723 samples were used to produce the training dataset. The following classifications were used to create the model: maximum depth = 20, minimum leaf samples = 25, number of estimators = 200, and random state = 100. With the given dataset, the success of the model on the testing dataset is as follows: R2 score = 0.46, mean squared error = 0.88, and mean absolute error = 0.23. To improve this model, we plan to work with our validation dataset to adjust the basic classifiers within the trees, as well as extend the dataset to multiple days and timestamps. While the current input data is less than ideal, the functionality of the random forest regressor model is successful.  
 
+<p align="center">
+  <img src="images/Figure_2.png" width="850">
+</p>
+
+<p align="center">
+  <em>Figure 2: Best performing parameters for the random forest regressor. </em>
+</p>
+
+<p align="center">
+  <img src="images/Figure_3.png" width="850">
+</p>
+
+<p align="center">
+  <em>Figure 3:  </em>
+</p>
+
+<p align="center">
+  <img src="images/Figure_4.png" width="850">
+</p>
+
+<p align="center">
+  <em>Figure 4: The random forest regressor prediction of MESH compared to the actual MRMS MESH value. </em>
+</p>
+
 ## IV. Summary
 This project used a random forest ML model to predict the maximum hail size based on environmental variables from the HRRR. Improving hail forecasting ability by drawing connections between hail sizes and environmental variable values can be used to better prepare industry to anticipate potential damage and loss due to severe hail events as well as introduces opportunities for better hail mitigation/preparation. Further, this ML tool can be useful for forecasters to inform and communicate accurate prediction of hail risk/impact on society for a hail event. The random forest model used a dataset composed of fourteen HRRR environmental variables aligned with MRMS MESH values at each location to train, validate and test on. Results of the model performance, only based on a single day and single time step for latitude/longitude bounds of Minnesota, show an okay performing model with an R2 score of 0.52. This lower model performance is expected due to the limited data available used to run the random forest. In the future, the random forest will be run using data from March 1st till May 31st, 2024, which should provide the model with more samples to increase the model performance. In addition to the lengthening of the period used for input data, more HRRR variables will be included to further increase the ability of the model to predict the maximum hail size.
 
